@@ -1,12 +1,12 @@
-import graphics
-import nltk_services
 import re
-import sklearn_services
-import spacy_services
-from dataclasses import dataclass
 
-from data_managing import get_artist_lyrics
-from utils import progress_bar
+from . import graphics
+from . import nltk_services
+from . import sklearn_services
+from . import spacy_services
+from dataclasses import dataclass
+from .data_managing import get_artist_lyrics
+from .utils import progress_bar
 
 
 @dataclass

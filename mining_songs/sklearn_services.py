@@ -1,6 +1,6 @@
 from nltk.corpus import stopwords
 from nltk.stem import WordNetLemmatizer
-from nltk_services import tokenize_text_whitespaces
+from .nltk_services import tokenize_text_whitespaces
 from sklearn.cluster import KMeans
 from sklearn.feature_extraction.text import TfidfVectorizer
 

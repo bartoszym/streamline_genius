@@ -2,7 +2,7 @@ import os
 import wordcloud
 import matplotlib.pyplot as plt
 
-from data_managing import DATA_PATH
+from .data_managing import DATA_PATH
 
 
 def create_bar_plot(data: dict, artist_name: str, title: str) -> str:

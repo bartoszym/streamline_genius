@@ -1,6 +1,6 @@
-from genius_api import GeniusAPI
-from lyrics_analyze import Artist
-from menu_items import MENU_ITEMS
+from .genius_api import GeniusAPI
+from .lyrics_analyze import Artist
+from .menu_items import MENU_ITEMS
 
 from typing import Union
 
@@ -69,12 +69,6 @@ def menu(artist_name: str):
         wait_for_user = input("Click enter to continue...")
 
 
-def get_artist_data(api: GeniusAPI) -> Union[str, str, str]:
-    while True:
-        artist_name = input("Please provide artist name: ")
-        found_name, api_path, artist_id = api.find_artist(artist_name)
-        is_found_name_good = input(
-            f"""Is found name "{found_name}" the artist you are looking for? (y or n)"""
-        )
-        if is_found_name_good == "y":
-            return found_name, api_path, artist_id
+def get_artist_data(artist_name: str, api: GeniusAPI) -> Union[str, str, str]:
+    found_name, api_path, artist_id = api.find_artist(artist_name)
+    return found_name, api_path, artist_id

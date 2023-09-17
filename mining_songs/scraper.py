@@ -3,7 +3,7 @@ import requests
 
 from bs4 import BeautifulSoup
 
-from utils import progress_bar
+from .utils import progress_bar
 
 GENIUS_URL = "https://genius.com"
 
