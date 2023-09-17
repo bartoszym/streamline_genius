@@ -32,9 +32,7 @@ class GeniusAPI:
 
         return found_artist_name, artist_api_path, artist_id
 
-    def get_artist_songs_urls(
-        self, artist_api_path: str, artist_id: int
-    ) -> Union[list, str]:
+    def get_artist_songs_urls(self, artist_api_path: str, artist_id: int) -> list:
         url = self.base_url + artist_api_path + "/songs"
         songs_urls_final = {}
         page_number = 1
@@ -50,5 +48,5 @@ class GeniusAPI:
             }
             songs_urls_final.update(songs_urls)
             page_number += 1
-        language = response_json["response"]["songs"][0]["language"]
-        return songs_urls_final, language
+
+        return songs_urls_final

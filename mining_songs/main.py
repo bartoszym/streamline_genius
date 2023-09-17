@@ -1,21 +1,21 @@
-from genius_api import GeniusAPI
-from data_managing import *
-from scraper import Scraper
-from user_interaction import menu, get_artist_data
+from .genius_api import GeniusAPI
+from .data_managing import *
+from .scraper import Scraper
+from .user_interaction import menu, get_artist_data
 
 
-def prepare_data() -> str:
-    api = GeniusAPI()
-    artist_name, artist_api_path, artist_id = get_artist_data(api)
-    if not artist_dir_exists(artist_name):
-        songs_urls_dict, language = api.get_artist_songs_urls(
-            artist_api_path, artist_id
-        )
+def get_proposed_artist(artist_name: str, api: GeniusAPI) -> str:
+    found_name, _, _ = api.find_artist(artist_name)
+    return found_name
+
+
+def download_lyrics_for_artist(artist_name: str, api: GeniusAPI, language: str):
+    found_name, artist_api_path, artist_id = api.find_artist(artist_name)
+    if not artist_dir_exists(found_name):
+        songs_urls_dict = api.get_artist_songs_urls(artist_api_path, artist_id)
         scraper = Scraper(songs_urls_dict, language)
-        create_artist_directory(artist_name)
-        save_lyrics_json(scraper.get_artist_lyrics(), artist_name)
-
-    return artist_name
+        create_artist_directory(found_name)
+        save_lyrics_json(scraper.get_artist_lyrics(), found_name)
 
 
 def main():
