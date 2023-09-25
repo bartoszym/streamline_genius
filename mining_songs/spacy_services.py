@@ -1,4 +1,5 @@
 import spacy
+import pandas as pd
 from collections import Counter, defaultdict
 
 LANGUAGES_PACKAGES = {"en": "en_core_web_sm", "pl": "pl_core_news_sm"}
@@ -18,10 +19,19 @@ def most_frequent_words(lyrics: str, top_n_words: int = None, **kwargs) -> dict:
         language_package, enable=["tagger", "attribute_ruler", "lemmatizer"]
     )
     doc = nlp(lyrics)
-    cleaned_lyrics = [
-        token.lemma_ for token in doc if not (token.is_stop or not token.is_alpha)
-    ]
+    cleaned_lyrics = pd.DataFrame(
+        [token.lemma_ for token in doc if not (token.is_stop or not token.is_alpha)],
+        columns=["word"],
+    )
+    print(
+        cleaned_lyrics.groupby(["word"])["word"]
+        .count()
+        .sort_values(["count"], ascending=False)
+    )
+    # print(cleaned_lyrics)
     freq_dist = Counter(cleaned_lyrics)
+    # print(freq_dist.most_common(top_n_words))
+    # print(dict(freq_dist.most_common(top_n_words)))
     return dict(freq_dist.most_common(top_n_words))
 
 
